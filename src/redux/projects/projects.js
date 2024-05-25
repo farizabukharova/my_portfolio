@@ -66,7 +66,7 @@ const initialState = {
       label: 'Front-End',
     },
     {
-      id: 7,
+      id: 5,
       title: 'Education website',
       intro: '',
       desc: 'Best-Selling Online Courses — Find the right instructor for you. Choose from many topics, skill levels, and languages.',
@@ -102,7 +102,7 @@ const initialState = {
     //   label: 'Back-End',
     // },
     {
-      id: 8,
+      id: 7,
       title: 'Shinesop',
       intro: 'Women\'s jewelry from the 2024 collections',
       desc: 'Women\'s jewelry from the 2024 collections: the best luxury and premium brands, wide range, fast delivery in Almaty, Astana and Kazakhstan.',

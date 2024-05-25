@@ -1,15 +1,16 @@
+// eslint-disable-next-line no-undef
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line no-undef
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+// eslint-disable-next-line no-undef
 module.exports = {
-
-    entry: './src/index.js',
+    mode: 'development', // Или 'production'
+    entry: './src/index.js', // Путь к вашему входному файлу JavaScript
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[contenthash].js',
-        chunkFilename: '[name].[contenthash].js',
+        // eslint-disable-next-line no-undef
+        path: path.resolve(__dirname, 'dist'), // Путь к папке, где будет собран проект
+        filename: 'bundle.js', // Имя файла, в который будет собран JavaScript
     },
     module: {
         rules: [
@@ -17,40 +18,25 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: 'babel-loader', // Загрузка JavaScript с помощью Babel
                     options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        presets: ['@babel/preset-env'], // Используем пресет @babel/preset-env для поддержки ES6+
                     },
                 },
             },
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                test: /\.css$/, // Обрабатываем файлы CSS
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', // Загружаем CSS в JavaScript
+                    'postcss-loader', // Применяем PostCSS для дополнительных преобразований
+                ],
             },
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html',
-            filename: 'index.html',
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                useShortDoctype: true,
-            },
+        new MiniCssExtractPlugin({ // Плагин для извлечения CSS в отдельный файл
+            filename: 'styles.css', // Имя файла для собранного CSS
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[id].[contenthash].css',
-        }),
-        new CleanWebpackPlugin(),
     ],
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-        },
-    },
 };
